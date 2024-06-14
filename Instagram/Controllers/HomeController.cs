@@ -35,9 +35,23 @@ namespace Instagram.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(int esmpio)
+        public IActionResult Create(Post post)
         {
-            return View();
+            if(!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+            using (InstagramDbContext context = new InstagramDbContext())
+            {
+                Post postCreato = new Post();
+                postCreato.Descrizione = post.Descrizione;
+                postCreato.Tag = post.Tag;
+                postCreato.Commenti = post.Commenti;
+                postCreato.Visible = post.Visible;
+                context.Posts.Add(postCreato);
+                context.SaveChanges();
+                return View("Index");
+            }     
         }
 
         public IActionResult Update()

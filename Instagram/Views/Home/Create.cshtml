@@ -1,2 +1,24 @@
-﻿
-<h1>VAaaaa?</h1>
+﻿﻿@using Instagram.Data;
+@model InstagramModel;
+
+
+<div class="container">
+    <form asp-controller="Home" asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <strong>Titolo</strong>
+            <input asp-for="Post.Titolo" class="d-block w-100" />
+            <span asp-validation-for=Post.Titolo class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Descrizione</strong>
+            <input asp-for="Post.Descrizione" class="d-block w-100" />
+            <span class="text-danger" asp-validation-for=Post.Descrizione></span>
+        </div>
+
+        <div class="text-end">
+            <input type="submit" class="btn btn-small btn-info" value="PostInserito">
+        </div>
+    </form>
+</div>
+<a href="@Url.Action("Index", "Home")">Torna in Home </a>
