@@ -1,4 +1,5 @@
-﻿using Instagram.Models;
+﻿using Instagram.Data;
+using Instagram.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -14,6 +15,37 @@ namespace Instagram.Controllers
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            using (InstagramDbContext context = new InstagramDbContext())
+            {
+                List<Tag> tags = new List<Tag>(); 
+                InstagramModel model = new InstagramModel();
+                model.Post = new Post();
+                model.Tags = tags;
+                return View("Create" , model);
+            }
+           
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(int esmpio)
+        {
+            return View();
+        }
+
+        public IActionResult Update()
+        {
+            return View();
+        }
+
+        public IActionResult Delete()
         {
             return View();
         }
