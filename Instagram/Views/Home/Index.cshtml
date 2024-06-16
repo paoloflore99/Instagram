@@ -1,9 +1,28 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "PostSingolo";
 }
+﻿@using Instagram.Data;
+@model List<Post>;
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <a href="@Url.Action("Create", "Home")">Crea Post</a>
+
+    @{
+        foreach (var post in Model)
+        {
+            <div class="col-md-4 photo-card">
+                <div class="card">
+                    <!--<img src="@post.Titolo" class="card-img-top" alt="@post.Titolo">-->
+                    <div class="card-body">
+
+                        <h5 class="card-title">@post.Titolo</h5>
+                        <p class="card-text">@post.Descrizione</p>
+                        <!--<a href="@Url.Action("PerID", "Home", new { id = post.Id })" class="btn btn-info">Dettaglio foto</a>-->
+                    </div>
+                </div>
+            </div>
+        }
+    }
 </div>

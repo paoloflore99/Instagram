@@ -16,7 +16,9 @@ namespace Instagram.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(InstagramMenager.OllPost());
+
+
         }
 
         [HttpGet]
@@ -53,11 +55,13 @@ namespace Instagram.Controllers
                 return View("Index");
             }     
         }
-
+        [HttpGet]
         public IActionResult Update()
         {
             return View();
         }
+
+
 
         public IActionResult Delete()
         {
