@@ -7,9 +7,10 @@ namespace Instagram.Data
     public class InstagramDbContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<Post> Posts { get; set; }
-        //public DbSet<Foto> Fotos { get; set; }
         public DbSet<Commento>? Comments { get; set; }  
         public DbSet<Tag>? Tags { get; set; }
+        public DbSet<Utente> Utente { get; set; }
+        public DbSet<Like> Like { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
