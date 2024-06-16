@@ -17,8 +17,11 @@ namespace Instagram.Controllers
         public IActionResult Index()
         {
             return View(InstagramMenager.OllPost());
+        }
 
-
+        public IActionResult PostIdPublico(int id)
+        {
+                return View(InstagramMenager.PostPublic(id));      
         }
 
         [HttpGet]
@@ -56,9 +59,21 @@ namespace Instagram.Controllers
             }     
         }
         [HttpGet]
-        public IActionResult Update()
+        public IActionResult Update(int id)
         {
-            return View();
+            using (InstagramDbContext context = new InstagramDbContext())
+            {
+                Post postedit = context.Posts.Where(Post =>  Post.Id == id).FirstOrDefault();
+                if(postedit != null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View("Update");
+                }
+            }
+                
         }
 
 
