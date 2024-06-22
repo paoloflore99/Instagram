@@ -6,6 +6,7 @@ namespace Instagram.Models
     {
         public Post Post { get; set; }
         public List<Tag> Tags { get; set; }
+        public Utente Utente { get; set; }
         public InstagramModel() { }
 
 

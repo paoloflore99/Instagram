@@ -49,9 +49,10 @@ namespace Instagram.Controllers
             using (InstagramDbContext context = new InstagramDbContext())
             {
                 Post postCreato = new Post();
+                postCreato.Titolo = post.Titolo;
                 postCreato.Descrizione = post.Descrizione;
                 postCreato.Tag = post.Tag;
-                postCreato.Commenti = post.Commenti;
+                //postCreato.Commenti = post.Commenti;
                 postCreato.Visible = post.Visible;
                 context.Posts.Add(postCreato);
                 context.SaveChanges();

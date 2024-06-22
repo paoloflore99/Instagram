@@ -8,6 +8,8 @@ namespace Instagram.Data
         [Key]
         public int Id { get; set; }
         public Foto() { }
-        */
+        */ 
+
+
     }
 }
