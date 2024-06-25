@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Instagram.Data;
+using Instagram.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Instagram.Controllers
 {
@@ -8,5 +10,6 @@ namespace Instagram.Controllers
         {
             return View();
         }
+        
     }
 }

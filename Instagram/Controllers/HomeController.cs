@@ -84,6 +84,44 @@ namespace Instagram.Controllers
             return View();
         }
 
+
+        [HttpGet]
+        public IActionResult CreateAc()
+        {
+            using (InstagramDbContext context = new InstagramDbContext())
+            {
+                InstagramModel model = new InstagramModel();
+                model.Utentes = new Utente();
+                return View("Account", model);
+            }
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateAc(Utente utente)
+        {
+            if (!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+            using (InstagramDbContext context = new InstagramDbContext())
+            {
+                InstagramModel model = new InstagramModel();
+                Utente NuovoUtente = new Utente();
+                NuovoUtente.Name = utente.Name;
+                NuovoUtente.NameAcount = utente.NameAcount;
+                NuovoUtente.Email = utente.Email;
+                NuovoUtente.Password = utente.Password;
+                context.Utente.Add(NuovoUtente);
+                context.SaveChanges();
+                return View("Index");
+            }
+
+        }
+
+
+
+
         public IActionResult Privacy()
         {
             return View();
