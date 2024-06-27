@@ -1,41 +1,31 @@
-﻿@{
-    ViewData["Title"] = "Registrazione";
-}
+﻿@model Instagram.Data.Utente
 
-﻿@using Instagram.Data;
-@model InstagramModel;
-<!--registrazione con 
-    email o numero di telefono
-    nome e cognome 
-    nome utente
-    password
--->
 <div class="container">
     <form asp-controller="Home" asp-action="CreateAc" method="post">
         @Html.AntiForgeryToken()
         <div class="mb-3">
-            <strong>email o numero di telefono </strong>
-            <input asp-for="Utentes.Email" class="d-block w-100" />
-            <span class="text-danger" asp-validation-for=Utentes.Email></span>
+            <strong>email o numero di telefono</strong>
+            <input asp-for="Email" class="d-block w-100" />
+            <span class="text-danger" asp-validation-for="Email"></span>
         </div>
         <div class="mb-3">
             <strong>nome e cognome</strong>
-            <input asp-for="Utentes.Name" class="d-block w-100" />
-            <span class="text-danger" asp-validation-for=Utentes.Name></span>
+            <input asp-for="Name" class="d-block w-100" />
+            <span class="text-danger" asp-validation-for="Name"></span>
         </div>
         <div class="mb-3">
             <strong>Nome utente</strong>
-            <input asp-for="Utentes.NameAcount" class="d-block w-100" />
-            <span class="text-danger" asp-validation-for=Utentes.NameAcount></span>
+            <input asp-for="NameAcount" class="d-block w-100" />
+            <span class="text-danger" asp-validation-for="NameAcount"></span>
         </div>
         <div class="mb-3">
             <strong>Password</strong>
-            <input asp-for="Utentes.Password" class="d-block w-100" />
-            <span class="text-danger" asp-validation-for=Utentes.Password></span>
+            <input asp-for="Password" class="d-block w-100" />
+            <span class="text-danger" asp-validation-for="Password"></span>
         </div>
         <div class="text-end">
             <input type="submit" class="btn btn-small btn-info" value="PostInserito">
         </div>
     </form>
 </div>
-<a href="@Url.Action("AcessoAcount", "Acount")">Sei gia registrato ?</a>
+<a href="@Url.Action("AcessoAcount", "Acount")">Sei già registrato?</a>

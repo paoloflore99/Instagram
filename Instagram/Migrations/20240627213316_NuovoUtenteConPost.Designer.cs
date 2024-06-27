@@ -4,6 +4,7 @@ using Instagram.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Instagram.Migrations
 {
     [DbContext(typeof(InstagramDbContext))]
-    partial class InstagramDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240627213316_NuovoUtenteConPost")]
+    partial class NuovoUtenteConPost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,17 +97,12 @@ namespace Instagram.Migrations
                     b.Property<string>("Titolo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UtenteId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("Visible")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TagId");
-
-                    b.HasIndex("UtenteId");
 
                     b.ToTable("Posts");
                 });
@@ -153,7 +150,12 @@ namespace Instagram.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PostId");
 
                     b.ToTable("Utente");
                 });
@@ -388,13 +390,16 @@ namespace Instagram.Migrations
                         .WithMany("Posts")
                         .HasForeignKey("TagId");
 
-                    b.HasOne("Instagram.Data.Utente", "Utente")
-                        .WithMany("Posts")
-                        .HasForeignKey("UtenteId");
-
                     b.Navigation("Tag");
+                });
 
-                    b.Navigation("Utente");
+            modelBuilder.Entity("Instagram.Data.Utente", b =>
+                {
+                    b.HasOne("Instagram.Data.Post", "Post")
+                        .WithMany("Utente")
+                        .HasForeignKey("PostId");
+
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -458,14 +463,11 @@ namespace Instagram.Migrations
                     b.Navigation("Commenti");
 
                     b.Navigation("Likes");
+
+                    b.Navigation("Utente");
                 });
 
             modelBuilder.Entity("Instagram.Data.Tag", b =>
-                {
-                    b.Navigation("Posts");
-                });
-
-            modelBuilder.Entity("Instagram.Data.Utente", b =>
                 {
                     b.Navigation("Posts");
                 });

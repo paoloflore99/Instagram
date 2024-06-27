@@ -2,7 +2,7 @@
 using Instagram.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-
+//using Instagram.Models;
 namespace Instagram.Controllers
 {
     public class HomeController : Controller
@@ -88,14 +88,19 @@ namespace Instagram.Controllers
         [HttpGet]
         public IActionResult CreateAc()
         {
+            /*
             using (InstagramDbContext context = new InstagramDbContext())
             {
                 InstagramModel model = new InstagramModel();
                 model.Utentes = new Utente();
-                return View("Account", model);
+                return View("Account", model);                
             }
+            */
+            Utente nuovoUtente = new Utente();
+            return View("Account", nuovoUtente);
 
         }
+        /*
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult CreateAc(Utente utente)
@@ -117,9 +122,27 @@ namespace Instagram.Controllers
                 return View("Index");
             }
 
+        }*/
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateAc(Utente utente)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Account", utente);
+            }
+            
+            using (InstagramDbContext context = new InstagramDbContext())
+            {
+                context.Utente.Add(utente);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
         }
 
-
+           //5 2      3           3             2          2         2
+        //(20AB5 - 10 A B ) : ( -5AB ) - ( 6A +B) + 12AB+4A ( 9+ B) +B = 
 
 
         public IActionResult Privacy()
@@ -134,3 +157,4 @@ namespace Instagram.Controllers
         }
     }
 }
+
