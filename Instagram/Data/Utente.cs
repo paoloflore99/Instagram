@@ -15,6 +15,7 @@ namespace Instagram.Data
         public List<Post> Posts { get; set; } = new List<Post>();
         [Required]
         public DateTime DataCreazioneAccount { get; set; }
+        public ICollection<UtenteRoles>? UtentiRuoli { get; set; } = new List<UtenteRoles>();
         public Utente() 
         {
 
