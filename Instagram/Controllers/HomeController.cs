@@ -59,6 +59,7 @@ namespace Instagram.Controllers
                 return View("Index");
             }     
         }
+
         [HttpGet]
         public IActionResult Update(int id)
         {
@@ -77,9 +78,21 @@ namespace Instagram.Controllers
                 
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Update(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+            using (InstagramDbContext context = new InstagramDbContext())
+            {
+                return View("Index");
+            }
+        }
 
-
-        public IActionResult Delete()
+            public IActionResult Delete()
         {
             return View();
         }
