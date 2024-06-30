@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
 namespace Instagram.Data
@@ -15,11 +16,7 @@ namespace Instagram.Data
         public int? TagId { get; set; }
         public Tag? Tag { get; set; }
         public bool Visible { get; set; }
-        //public int? UtenteId { get; set; }
-        //public Utente? Utente { get; set; }
-        public string UserId { get; set; } 
-       // public ApplicationUser User { get; set; } 
-
+        public string? UserId { get; set; }
         public ICollection<Like>? Likes { get; set; } = new List<Like>();
         public Post() { }
 

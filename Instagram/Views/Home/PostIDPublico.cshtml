@@ -5,6 +5,7 @@
 @model Post;
 <p>@Model.Descrizione</p>
 <p>@Model.Titolo</p>
+<p>@Model.UserId</p>
  <form asp-controller="Home" asp-action="NumeroLike" method="post">
         @Html.AntiForgeryToken()
     <input asp-for ="Likes" type="type" name="name" value="" />

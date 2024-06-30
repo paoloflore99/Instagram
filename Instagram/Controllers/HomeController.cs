@@ -5,18 +5,18 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.AspNetCore.Identity;
+using Instagram.Controllers;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+
 
 //using Instagram.Models;
 namespace Instagram.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
 
         public IActionResult Index()
         {
@@ -44,7 +44,7 @@ namespace Instagram.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Post post)
+        public async Task<IActionResult> CreateAsync(Post post)
         {
             if(!ModelState.IsValid)
             {
@@ -60,9 +60,11 @@ namespace Instagram.Controllers
                 postCreato.Visible = post.Visible;
                 context.Posts.Add(postCreato);
                 context.SaveChanges();
-                return View("Index");
+                return RedirectToAction(nameof(Index));
             }     
         }
+
+
 
         [HttpGet]
         public IActionResult Update(int id)
