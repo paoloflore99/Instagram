@@ -5,3 +5,17 @@
 @model Post;
 <p>@Model.Descrizione</p>
 <p>@Model.Titolo</p>
+ <form asp-controller="Home" asp-action="NumeroLike" method="post">
+        @Html.AntiForgeryToken()
+    <input asp-for ="Likes" type="type" name="name" value="" />
+</form>
+<div class="container">
+    <form asp-controller="Home" asp-action="CommentoUtente" method="post">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <strong>email o numero di telefono</strong>
+            <input asp-for="Commenti" class="d-block w-100" />
+            <span class="text-danger" asp-validation-for="Commenti"></span>
+        </div>
+    </form>
+ </div>

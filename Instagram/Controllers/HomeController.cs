@@ -1,7 +1,11 @@
-﻿using Instagram.Data;
+﻿using Humanizer.Localisation;
+using Instagram.Data;
 using Instagram.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+
 //using Instagram.Models;
 namespace Instagram.Controllers
 {
@@ -80,7 +84,7 @@ namespace Instagram.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(int id)
+        public IActionResult iUpdate(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -98,66 +102,32 @@ namespace Instagram.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult CreateAc()
-        {
-            /*
-            using (InstagramDbContext context = new InstagramDbContext())
-            {
-                InstagramModel model = new InstagramModel();
-                model.Utentes = new Utente();
-                return View("Account", model);                
-            }
-            */
-            Utente nuovoUtente = new Utente();
-            return View("Account", nuovoUtente);
 
-        }
-        /*
+
+       
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult CreateAc(Utente utente)
+        public IActionResult Like()
         {
             if (!ModelState.IsValid)
             {
-                return NotFound();
+                return View();
             }
             using (InstagramDbContext context = new InstagramDbContext())
             {
-                InstagramModel model = new InstagramModel();
-                Utente NuovoUtente = new Utente();
-                NuovoUtente.Name = utente.Name;
-                NuovoUtente.NameAcount = utente.NameAcount;
-                NuovoUtente.Email = utente.Email;
-                NuovoUtente.Password = utente.Password;
-                context.Utente.Add(NuovoUtente);
                 context.SaveChanges();
-                return View("Index");
+                return View();
             }
-
-        }*/
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult CreateAc(Utente utente)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View("Account", utente);
-            }
-            
-            using (InstagramDbContext context = new InstagramDbContext())
-            {
-                context.Utente.Add(utente);
-                context.SaveChanges();
-                return RedirectToAction("Index");
-            }
+               
         }
 
-           //5 2      3           3             2          2         2
-        //(20AB5 - 10 A B ) : ( -5AB ) - ( 6A +B) + 12AB+4A ( 9+ B) +B = 
 
 
+
+        [HttpPost]
+        public IActionResult CommentoUtente()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

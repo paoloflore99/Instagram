@@ -15,8 +15,10 @@ namespace Instagram.Data
         public int? TagId { get; set; }
         public Tag? Tag { get; set; }
         public bool Visible { get; set; }
-        public int? UtenteId { get; set; }
-        public Utente? Utente { get; set; }
+        //public int? UtenteId { get; set; }
+        //public Utente? Utente { get; set; }
+        public string UserId { get; set; } 
+       // public ApplicationUser User { get; set; } 
 
         public ICollection<Like>? Likes { get; set; } = new List<Like>();
         public Post() { }
