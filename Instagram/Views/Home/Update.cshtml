@@ -2,7 +2,7 @@
 @model InstagramModel
 <h1>Update</h1>
 <div class="container">
-    <form asp-controller="Home" asp-action="Update" method="post">
+    <form asp-controller="Home" asp-action="Update" asp-all-route-id="@Model.Post.Id" method="post">
         @Html.AntiForgeryToken()
 
         <!-- Aggiungi un campo nascosto per l'ID dell'utente -->
@@ -23,4 +23,11 @@
             <input type="submit" class="btn btn-small btn-info" value="Post Inserito">
         </div>
     </form>
+
+
 </div>
+
+<form asp-controller="Home" asp-action="Delete" asp-route-id="@Model.Post.Id" method="post">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn-danger btn-sm btn"> cancella</button>
+</form>

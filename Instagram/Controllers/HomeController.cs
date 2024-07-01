@@ -78,7 +78,9 @@ namespace Instagram.Controllers
                 }
                 else
                 {
-                    return View("Update");
+                    InstagramModel model = new InstagramModel();
+                    model.Post = postedit;
+                    return View(model);
                 }
             }
                 
@@ -112,10 +114,25 @@ namespace Instagram.Controllers
 
 
 
-
-        public IActionResult Delete()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
         {
-          return View();
+            using (InstagramDbContext context = new InstagramDbContext())
+            {
+                Post postDelete = context.Posts.Where(Post => Post.Id == id).FirstOrDefault();
+                if(postDelete != null)
+                {
+                    context.Posts.Remove(postDelete);
+                    context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound();
+                }
+                
+            }
         }
 
 
