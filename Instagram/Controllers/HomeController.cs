@@ -44,7 +44,7 @@ namespace Instagram.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAsync(Post post)
+        public IActionResult Create(Post post)
         {
             if(!ModelState.IsValid)
             {
@@ -72,7 +72,7 @@ namespace Instagram.Controllers
             using (InstagramDbContext context = new InstagramDbContext())
             {
                 Post postedit = context.Posts.Where(Post =>  Post.Id == id).FirstOrDefault();
-                if(postedit != null)
+                if(postedit == null)
                 {
                     return NotFound();
                 }
@@ -86,21 +86,36 @@ namespace Instagram.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult iUpdate(int id)
+        public IActionResult Update(int id, Post post)
         {
             if (!ModelState.IsValid)
             {
-                return NotFound();
+                return View("Update" , post);
             }
             using (InstagramDbContext context = new InstagramDbContext())
             {
-                return View("Index");
+                Post postedit = context.Posts.Where(Post => Post.Id == id).FirstOrDefault();
+                if(postedit != null)
+                {
+                    postedit.Titolo = post.Titolo;
+                    postedit.Descrizione = post.Descrizione;
+                    context.SaveChanges();
+                    return View("Index");
+                }
+                else
+                {
+                    return View("Update", post);
+                }
+
             }
         }
 
-            public IActionResult Delete()
+
+
+
+        public IActionResult Delete()
         {
-            return View();
+          return View();
         }
 
 

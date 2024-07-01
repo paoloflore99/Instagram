@@ -1,1 +1,26 @@
-﻿
+﻿@using Instagram.Data
+@model InstagramModel
+<h1>Update</h1>
+<div class="container">
+    <form asp-controller="Home" asp-action="Update" method="post">
+        @Html.AntiForgeryToken()
+
+        <!-- Aggiungi un campo nascosto per l'ID dell'utente -->
+        <!-- <input type="hidden" asp-for="Post.UserId" /> -->
+
+        <div class="mb-3">
+            <strong>Titolo</strong>
+            <input asp-for="Post.Titolo" class="d-block w-100" />
+            <span class="text-danger" asp-validation-for="Post.Titolo"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Descrizione</strong>
+            <input asp-for="Post.Descrizione" class="d-block w-100" />
+            <span class="text-danger" asp-validation-for="Post.Descrizione"></span>
+        </div>
+
+        <div class="text-end">
+            <input type="submit" class="btn btn-small btn-info" value="Post Inserito">
+        </div>
+    </form>
+</div>

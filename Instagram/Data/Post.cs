@@ -17,7 +17,7 @@ namespace Instagram.Data
         public Tag? Tag { get; set; }
         public bool Visible { get; set; }
         public string? UserId { get; set; }
-        public ICollection<Like>? Likes { get; set; } = new List<Like>();
+        public ICollection<Like>? Likes { get; set; }
         public Post() { }
 
         public Post(string titolo ,string Descrizione, bool visibile) 
