@@ -8,7 +8,7 @@ namespace Instagram.Controllers
         {
             using (InstagramDbContext context = new InstagramDbContext())
             {
-
+                List<Post> posts = context.Posts.ToList();
                 return context.Posts.ToList();
             }
         }

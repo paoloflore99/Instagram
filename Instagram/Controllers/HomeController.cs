@@ -106,7 +106,8 @@ namespace Instagram.Controllers
                 }
                 else
                 {
-                    return View("Update", post);
+                    //return RedirectToAction("PostIDPublico", new { id = postedit.Id });
+                    return RedirectToAction("Index", post);
                 }
 
             }

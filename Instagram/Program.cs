@@ -42,7 +42,8 @@ namespace Instagram
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
             app.Run();
-            
+            //https://localhost:7282/Identity/Account/Register
+
         }
     }
 }
