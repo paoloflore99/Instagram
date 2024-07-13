@@ -4,6 +4,7 @@
 ﻿@using Instagram.Data;
 @model List<Post>;
 
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
@@ -29,7 +30,7 @@
         {
             <div class="col-md-4 photo-card">
                 <div class="card">
-                    <!--<img src="@post.Titolo" class="card-img-top" alt="@post.Titolo">-->
+                    <!--<img src="@Model" class="card-img-top" alt="@Model">-->
                     <div class="card-body">
 
                         <h5 class="card-title">@post.Titolo</h5>
