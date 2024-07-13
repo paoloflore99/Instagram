@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Instagram.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 
 //using Instagram.Models;
@@ -16,7 +17,14 @@ namespace Instagram.Controllers
 {
     public class HomeController : Controller
     {
+        public IActionResult esempio()
+        {
+            using (InstagramDbContext context = new InstagramDbContext())
+            {
 
+            }
+            return View();
+        }
 
         public IActionResult Index()
         {
