@@ -10,8 +10,17 @@ for details on configuring this project to bundle and minify static web assets. 
     max-width: 350px;
     margin: 0 auto;
 }
-
-.logo{
-    height:50px;
-    white: 170px;
+.contenitoreloggo {
+    display: flex;
+    justify-content: center; /* Centra orizzontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 120px; /* Imposta l'altezza del contenitore, opzionale se vuoi centrare verticalmente */
 }
+
+.logo {
+    width: 300px; /* Imposta la larghezza */
+    height: 100px; /* Imposta l'altezza */
+    object-fit: contain; /* Mantiene il rapporto d'aspetto dell'immagine all'interno delle dimensioni specificate */
+}
+
+
