@@ -1,0 +1,17 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+.rettangolo {
+    border: 1px solid black;
+    box-sizing: border-box;
+    padding: 10px 0;
+    font-size: 100%;
+    margin: 0 0 10px;
+    flex-shrink: 0;
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.logo{
+    height:50px;
+    white: 170px;
+}
