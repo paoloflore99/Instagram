@@ -4,6 +4,7 @@ using Instagram.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Instagram.Migrations
 {
     [DbContext(typeof(InstagramDbContext))]
-    partial class InstagramDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240720153358_AddUserAccountRelation")]
+    partial class AddUserAccountRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,30 +23,6 @@ namespace Instagram.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Instagram.Data.Account", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Account");
-                });
 
             modelBuilder.Entity("Instagram.Data.Commento", b =>
                 {
@@ -231,10 +209,6 @@ namespace Instagram.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -286,8 +260,6 @@ namespace Instagram.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -369,24 +341,6 @@ namespace Instagram.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Instagram.Data.User", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.HasDiscriminator().HasValue("User");
-                });
-
-            modelBuilder.Entity("Instagram.Data.Account", b =>
-                {
-                    b.HasOne("Instagram.Data.User", "User")
-                        .WithOne("Account")
-                        .HasForeignKey("Instagram.Data.Account", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Instagram.Data.Commento", b =>
@@ -501,12 +455,6 @@ namespace Instagram.Migrations
             modelBuilder.Entity("Instagram.Data.Tag", b =>
                 {
                     b.Navigation("Posts");
-                });
-
-            modelBuilder.Entity("Instagram.Data.User", b =>
-                {
-                    b.Navigation("Account")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
