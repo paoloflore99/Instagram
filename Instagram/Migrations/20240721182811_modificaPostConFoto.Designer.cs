@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Instagram.Migrations
 {
     [DbContext(typeof(InstagramDbContext))]
-    [Migration("20240721154502_risoluzione")]
-    partial class risoluzione
+    [Migration("20240721182811_modificaPostConFoto")]
+    partial class modificaPostConFoto
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,22 +76,6 @@ namespace Instagram.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Instagram.Data.Foto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<byte[]>("Imaggine")
-                        .HasColumnType("varbinary(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Foto");
-                });
-
             modelBuilder.Entity("Instagram.Data.Like", b =>
                 {
                     b.Property<int>("Id")
@@ -132,8 +116,8 @@ namespace Instagram.Migrations
                     b.Property<string>("Descrizione")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FotoId")
-                        .HasColumnType("int");
+                    b.Property<byte[]>("Imaggine")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int?>("TagId")
                         .HasColumnType("int");
@@ -141,12 +125,10 @@ namespace Instagram.Migrations
                     b.Property<string>("Titolo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("Visible")
+                    b.Property<bool>("Visible")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FotoId");
 
                     b.HasIndex("TagId");
 
@@ -420,15 +402,9 @@ namespace Instagram.Migrations
 
             modelBuilder.Entity("Instagram.Data.Post", b =>
                 {
-                    b.HasOne("Instagram.Data.Foto", "Foto")
-                        .WithMany("Posts")
-                        .HasForeignKey("FotoId");
-
                     b.HasOne("Instagram.Data.Tag", "Tag")
                         .WithMany("Posts")
                         .HasForeignKey("TagId");
-
-                    b.Navigation("Foto");
 
                     b.Navigation("Tag");
                 });
@@ -482,11 +458,6 @@ namespace Instagram.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Instagram.Data.Foto", b =>
-                {
-                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("Instagram.Data.Like", b =>

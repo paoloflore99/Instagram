@@ -34,6 +34,7 @@
                                
                                 <div class="card-body">
                                     <h5 class="card-title">@post.Titolo</h5>
+                                    <img src="@post.ImgScr" alt="Alternate Text" />
                                     <p class="card-text">@post.Descrizione</p>
                                     <a href="@Url.Action("PostIdPublico", "Home", new { id = post.Id })" class="btn btn-info">Dettaglio foto</a>
                                 </div>

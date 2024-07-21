@@ -64,6 +64,7 @@ namespace Instagram.Controllers
                 postCreato.Titolo = post.Titolo;
                 postCreato.Descrizione = post.Descrizione;
                 postCreato.Tag = post.Tag;
+                postCreato.Imaggine = post.Imaggine;
                 //postCreato.Commenti = post.Commenti;
                 postCreato.Visible = post.Visible;
                 context.Posts.Add(postCreato);
@@ -107,6 +108,7 @@ namespace Instagram.Controllers
                 Post postedit = context.Posts.Where(Post => Post.Id == id).FirstOrDefault();
                 if(postedit != null)
                 {
+                    postedit.Imaggine = post.Imaggine;
                     postedit.Titolo = post.Titolo;
                     postedit.Descrizione = post.Descrizione;
                     postedit.Visible = post.Visible;

@@ -27,8 +27,8 @@ namespace Instagram.Models
             }
             using var stream = new MemoryStream();
             this.ImgFile?.CopyTo(stream);
-            Foto.Imaggine = stream.ToArray();
-            return Foto.Imaggine;
+            Post.Imaggine = stream.ToArray();
+            return Post.Imaggine;
         }
 
     }
