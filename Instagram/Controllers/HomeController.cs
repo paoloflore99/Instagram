@@ -39,37 +39,43 @@ namespace Instagram.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            using (InstagramDbContext context = new InstagramDbContext())
-            {
-                List<Tag> tags = new List<Tag>(); 
-                InstagramModel model = new InstagramModel();
-                model.Post = new Post();
-                model.Tags = tags;
-                return View("Create" , model);
-            }
+            InstagramModel model = new InstagramModel();
+            List<Tag> tags = new List<Tag>(); 
+            model.Post = new Post();
+            model.Tags = tags;
+            return View("Create" , model);
+          
            
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Post post)
+        public IActionResult Create(InstagramModel postCreato)
         {
             if(!ModelState.IsValid)
             {
-                return NotFound();
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
+                return View(postCreato);
             }
             using (InstagramDbContext context = new InstagramDbContext())
             {
-                Post postCreato = new Post();
-                postCreato.Titolo = post.Titolo;
-                postCreato.Descrizione = post.Descrizione;
-                postCreato.Tag = post.Tag;
-                postCreato.Imaggine = post.Imaggine;
-                //postCreato.Commenti = post.Commenti;
-                postCreato.Visible = post.Visible;
-                context.Posts.Add(postCreato);
+                Post posts = new Post
+                {
+                    Titolo = postCreato.Post.Titolo,
+                    Descrizione = postCreato.Post.Descrizione,
+                    Tag = postCreato.Post.Tag,
+                    //postCreato.Post.Imaggine = postCreato.Post.Imaggine;
+                    //postCreato.Commenti = post.Commenti;
+                    Visible = postCreato.Post.Visible,
+                    Imaggine = postCreato.imgFi()
+                };
+                context.Posts.Add(posts);
                 context.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }     
         }
 

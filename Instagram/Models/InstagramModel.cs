@@ -5,9 +5,9 @@ namespace Instagram.Models
     public class InstagramModel
     {
         public Post Post { get; set; }
-        public List<Tag> Tags { get; set; }
+        public List<Tag>? Tags { get; set; }
         public IFormFile? ImgFile { get; set; }
-        public Foto Foto { get; set; }
+        //public Foto Foto { get; set; }
         public InstagramModel() { }
         public byte[] SetFileImg()
         {

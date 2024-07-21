@@ -2,7 +2,7 @@
 @model InstagramModel
 
 <div class="container">
-    <form asp-controller="Home" asp-action="Create" method="post">
+    <form asp-controller="Home" asp-action="Create" method="post" enctype="multipart/form-data">
         @Html.AntiForgeryToken()
 
         <!-- Aggiungi un campo nascosto per l'ID dell'utente -->
