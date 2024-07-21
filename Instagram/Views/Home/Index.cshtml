@@ -26,13 +26,13 @@
 
 
     @{
-        foreach (var post in Model)
+        var postvisibbile = Model.Where(post => post.Visible);
+        foreach (var post in postvisibbile)
         {
             <div class="col-md-4 photo-card">
                 <div class="card">
                     <!--<img src="@Model" class="card-img-top" alt="@Model">-->
                     <div class="card-body">
-
                         <h5 class="card-title">@post.Titolo</h5>
                         <p class="card-text">@post.Descrizione</p>
                         <a href="@Url.Action("PostIdPublico", "Home", new { id = post.Id })" class="btn btn-info">Dettaglio foto</a>
