@@ -34,6 +34,10 @@ namespace Instagram.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NomeAcount")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -135,10 +139,7 @@ namespace Instagram.Migrations
                     b.Property<string>("Titolo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Visible")
+                    b.Property<bool?>("Visible")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");

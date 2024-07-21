@@ -109,6 +109,7 @@ namespace Instagram.Controllers
                 {
                     postedit.Titolo = post.Titolo;
                     postedit.Descrizione = post.Descrizione;
+                    postedit.Visible = post.Visible;
                     context.SaveChanges();
                     return View("Index");
                 }

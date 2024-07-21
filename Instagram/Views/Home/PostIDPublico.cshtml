@@ -4,6 +4,9 @@
 
 @using Instagram.Data
 @model Post;
+
 <p>@Model.Descrizione</p>
 <p>@Model.Titolo</p>
 <a href="@Url.Action("Update", "Home", new { id = Model.Id })" class="btn btn-info">Dettaglio foto</a>
+
+

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Instagram.Migrations
 {
     [DbContext(typeof(InstagramDbContext))]
-    [Migration("20240630181340_CreateIdentityTables")]
-    partial class CreateIdentityTables
+    [Migration("20240720154818_AddAccountPostRelation")]
+    partial class AddAccountPostRelation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,34 @@ namespace Instagram.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Instagram.Data.Account", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomeAcount")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Account");
+                });
 
             modelBuilder.Entity("Instagram.Data.Commento", b =>
                 {
@@ -46,6 +74,22 @@ namespace Instagram.Migrations
                     b.HasIndex("PostId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("Instagram.Data.Foto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<byte[]>("Imaggine")
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Foto");
                 });
 
             modelBuilder.Entity("Instagram.Data.Like", b =>
@@ -88,8 +132,8 @@ namespace Instagram.Migrations
                     b.Property<string>("Descrizione")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("Imaggine")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<int?>("FotoId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("TagId")
                         .HasColumnType("int");
@@ -97,36 +141,19 @@ namespace Instagram.Migrations
                     b.Property<string>("Titolo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UtenteId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Visible")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FotoId");
+
                     b.HasIndex("TagId");
 
-                    b.HasIndex("UtenteId");
-
                     b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("Instagram.Data.Roles", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Ruolo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("Instagram.Data.Tag", b =>
@@ -144,63 +171,6 @@ namespace Instagram.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("Instagram.Data.Utente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("DataCreazioneAccount")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NameAcount")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Utente");
-                });
-
-            modelBuilder.Entity("Instagram.Data.UtenteRoles", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RolesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UtenteId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RolesId");
-
-                    b.HasIndex("UtenteId");
-
-                    b.ToTable("UtenteRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -267,6 +237,10 @@ namespace Instagram.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -318,6 +292,8 @@ namespace Instagram.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -401,6 +377,24 @@ namespace Instagram.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Instagram.Data.User", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.HasDiscriminator().HasValue("User");
+                });
+
+            modelBuilder.Entity("Instagram.Data.Account", b =>
+                {
+                    b.HasOne("Instagram.Data.User", "User")
+                        .WithOne("Account")
+                        .HasForeignKey("Instagram.Data.Account", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Instagram.Data.Commento", b =>
                 {
                     b.HasOne("Instagram.Data.Post", "Post")
@@ -429,36 +423,17 @@ namespace Instagram.Migrations
 
             modelBuilder.Entity("Instagram.Data.Post", b =>
                 {
+                    b.HasOne("Instagram.Data.Foto", "Foto")
+                        .WithMany("Posts")
+                        .HasForeignKey("FotoId");
+
                     b.HasOne("Instagram.Data.Tag", "Tag")
                         .WithMany("Posts")
                         .HasForeignKey("TagId");
 
-                    b.HasOne("Instagram.Data.Utente", "Utente")
-                        .WithMany("Posts")
-                        .HasForeignKey("UtenteId");
+                    b.Navigation("Foto");
 
                     b.Navigation("Tag");
-
-                    b.Navigation("Utente");
-                });
-
-            modelBuilder.Entity("Instagram.Data.UtenteRoles", b =>
-                {
-                    b.HasOne("Instagram.Data.Roles", "Roles")
-                        .WithMany("UtentiRuoli")
-                        .HasForeignKey("RolesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Instagram.Data.Utente", "Utente")
-                        .WithMany("UtentiRuoli")
-                        .HasForeignKey("UtenteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Roles");
-
-                    b.Navigation("Utente");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -512,6 +487,11 @@ namespace Instagram.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Instagram.Data.Foto", b =>
+                {
+                    b.Navigation("Posts");
+                });
+
             modelBuilder.Entity("Instagram.Data.Like", b =>
                 {
                     b.Navigation("Likes");
@@ -524,21 +504,15 @@ namespace Instagram.Migrations
                     b.Navigation("Likes");
                 });
 
-            modelBuilder.Entity("Instagram.Data.Roles", b =>
-                {
-                    b.Navigation("UtentiRuoli");
-                });
-
             modelBuilder.Entity("Instagram.Data.Tag", b =>
                 {
                     b.Navigation("Posts");
                 });
 
-            modelBuilder.Entity("Instagram.Data.Utente", b =>
+            modelBuilder.Entity("Instagram.Data.User", b =>
                 {
-                    b.Navigation("Posts");
-
-                    b.Navigation("UtentiRuoli");
+                    b.Navigation("Account")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

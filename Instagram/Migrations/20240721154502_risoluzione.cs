@@ -4,7 +4,7 @@
 
 namespace Instagram.Migrations
 {
-    public partial class AddUserAccountRelation : Migration
+    public partial class risoluzione : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

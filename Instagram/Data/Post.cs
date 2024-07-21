@@ -8,7 +8,9 @@ namespace Instagram.Data
     {
         [Key]
         public int Id { get; set; }
+        [StringLength(100, ErrorMessage = "massimo 100 caratteri")]
         public string? Titolo { get; set; }
+        [StringLength(1000, ErrorMessage = "massimo 1000 caratteri")]
         public string? Descrizione { get; set; }
         public ICollection<Commento>? Commenti { get; set; }
         public int? TagId { get; set; }
@@ -16,7 +18,6 @@ namespace Instagram.Data
         public int? FotoId { get; set; }
         public Foto? Foto { get; set; }
         public bool Visible { get; set; }
-        public string? UserId { get; set; }
         public ICollection<Like>? Likes { get; set; }
 
         public Post() { }
