@@ -70,6 +70,10 @@ namespace Instagram.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required]
+            [StringLength(18, ErrorMessage = "Massimo 18 caratteri")]
+            [Display(Name = "NomeInsta")]
+            public string NomeInsta { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.

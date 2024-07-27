@@ -10,7 +10,7 @@ namespace Instagram.Data
         public DbSet<Commento>? Comments { get; set; }  
         public DbSet<Tag>? Tags { get; set; }
         public DbSet<Like> Like { get; set; }
-        public DbSet<User> Users { get; set; }
+       // public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

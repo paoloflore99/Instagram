@@ -10,6 +10,8 @@ using Instagram.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 
 //using Instagram.Models;
@@ -28,6 +30,7 @@ namespace Instagram.Controllers
 
         public IActionResult Index()
         {
+
             return View(InstagramMenager.OllPost());
         }
 
@@ -47,7 +50,7 @@ namespace Instagram.Controllers
           
            
         }
-
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(InstagramModel postCreato)
@@ -68,6 +71,7 @@ namespace Instagram.Controllers
                     Titolo = postCreato.Post.Titolo,
                     Descrizione = postCreato.Post.Descrizione,
                     Tag = postCreato.Post.Tag,
+
                     //postCreato.Post.Imaggine = postCreato.Post.Imaggine;
                     //postCreato.Commenti = post.Commenti;
                     Visible = postCreato.Post.Visible,

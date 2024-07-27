@@ -1,4 +1,6 @@
 ﻿using Instagram.Data;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Instagram.Controllers
 {
@@ -6,6 +8,7 @@ namespace Instagram.Controllers
     {
         public static List<Post> OllPost()
         {
+
             using (InstagramDbContext context = new InstagramDbContext())
             {
                 List<Post> posts = context.Posts.ToList();
